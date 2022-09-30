@@ -1,13 +1,12 @@
 .PHONY: all
 all: hello ut
 
-hello: HelloWorld.cpp
-	g++ HelloWorld.cpp -o HelloWorld
+hello: src/HelloWorld.cpp
+	g++ src/HelloWorld.cpp -o bin/HelloWorld
 
-ut: ut_main.cpp
-	g++ -std=c++11 -Wfatal-errors ut_main.cpp -o ut_all -lgtest -lpthread
+ut: test/ut_main.cpp
+	g++ -std=c++11 -Wfatal-errors test/ut_main.cpp -o bin/ut_all -lgtest -lpthread
 
 .PHONY: clean
 clean:
-	rm -f HelloWorld
-	rm -f ut_all
+	rm -f bin/*

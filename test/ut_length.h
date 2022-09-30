@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "length.h"
+#include "../src/length.h"
 TEST(LENGTH, TwoDim)
 {
     double arr[] = {3, 4};
@@ -22,6 +22,13 @@ TEST(LENGTH, TwoDimMathVector)
     int dim = 2;
     // MathVector m; -> default constructor
     MathVector m(dim, arr);
-    double output = length(m);
+    double output = length(m); // copy
     ASSERT_EQ(output, 5);
 }
+// void fun(int i){
+//     i = 10;
+// }
+// main()
+//  int i = 0;
+//  fun(i); -> copy
+//  pass by value

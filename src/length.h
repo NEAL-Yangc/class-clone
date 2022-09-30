@@ -38,12 +38,23 @@ double length(MathVector m)
 double dot(MathVector v1, MathVector v2)
 {
     if (v1.getDim() != v2.getDim())
-        return -1;
+        throw std::string("Undefined."); // original return -1, but not so good
     double sum = 0;
     for (int i = 0; i < v1.getDim(); i++)
     {
         sum += v1.getIndex(i) * v2.getIndex(i);
     }
     return sum;
+}
+MathVector add(MathVector v1, MathVector v2)
+{
+    if (v1.getDim() != v2.getDim())
+        throw std::string("Undefined.");
+    double arr[v1.getDim()];
+    for (int i = 0; i < v1.getDim(); i++)
+    {
+        arr[i] = v1.getIndex(i) + v2.getIndex(i);
+    }
+    return MathVector(v1.getDim(), arr);
 }
 #endif

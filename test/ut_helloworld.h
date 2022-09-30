@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "HelloWorld.h"
+#include "../src/HelloWorld.h"
 TEST(HELLOWORLD, Print)
 {
     std::string compare = "Hello World";
