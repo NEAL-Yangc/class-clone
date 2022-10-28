@@ -1,5 +1,5 @@
-#ifndef LENGTH
-#define LENGTH
+#ifndef LENGTH_H
+#define LENGTH_H
 #include <cmath>
 #include "MathVector.h"
 
@@ -26,7 +26,7 @@ double length(double *v, int dim) // double v[]
     return sqrt(sum);
 }
 // Function overloadding
-double length(MathVector m)
+double length(MathVector m) // no '&' => pass by value
 {
     double sum = 0;
     for (int i = 0; i < m.getDim(); i++)
@@ -35,8 +35,8 @@ double length(MathVector m)
     }
     return sqrt(sum);
 }
-double dot(MathVector v1, MathVector v2)
-{
+double dot(MathVector v1, const MathVector &v2) // no '&' => pass by value
+{                                               // '&' => pass by reference
     if (v1.getDim() != v2.getDim())
         throw std::string("Undefined."); // original return -1, but not so good
     double sum = 0;

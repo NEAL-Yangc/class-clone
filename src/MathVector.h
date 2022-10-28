@@ -2,6 +2,7 @@
 #define MATH_VECTOR
 
 #include <cmath>
+#include <iostream>
 
 class MathVector
 {
@@ -10,63 +11,24 @@ private:
     double *_arr; // uncertain size array
 public:
     // Constructor
-    MathVector() // default constructor
-    {
-        _dim = 0;
-        _arr = NULL;
-    }
-    MathVector(int dim, double *arr)
-    {
-        _dim = dim;
-        _arr = new double[_dim]; // be aware of memory leak
-                                 // can be check with valgrind
-                                 // sudo apt install valgrind
-        // data, text, stack, heap
-        for (int i = 0; i < _dim; i++)
-        {
-            _arr[i] = arr[i];
-        }
-    }
-    MathVector(const MathVector &input) // copy constuctor
-    {
-        this->_dim = input._dim;
-        this->_arr = new double[_dim];
-        for (int i = 0; i < _dim; i++)
-        {
-            this->_arr[i] = input._arr[i];
-        }
-    }
-    ~MathVector() // destructor
-    {
-        delete[] _arr; // [] means _arr is "a pointer to array"
-    }
+    MathVector() : _dim(0), _arr(nullptr){}; // default constructor
+    ~MathVector() { delete[] _arr; };        // destructor
+    void init(int dim, double *arr);
+    MathVector(int dim, double *arr) { init(dim, arr); };
+    MathVector(const MathVector &input) : MathVector(input._dim, input._arr){}; // copy constructor
+    MathVector &operator=(const MathVector &input);                             // copy assignment, in other word is "=" overloading
+    MathVector operator+(const MathVector &input);
+    MathVector operator-(const MathVector &input);
+    MathVector operator/(const MathVector &input);
+    bool operator>(const MathVector &input);
+    bool operator<(const MathVector &input);
+    std::string toString();
     // getter
-    int
-    getDim()
-    {
-        return _dim;
-    }
-    double getIndex(int i)
-    {
-        return _arr[i];
-    }
-    double length()
-    {
-        double sum = 0;
-        for (int i = 0; i < _dim; i++)
-        {
-            sum += pow(_arr[i], 2);
-        }
-        return sqrt(sum);
-    }
+    int getDim() const;
+    double getIndex(int i) const;
+    double length() const;
     // double dot(MathVector v1){}
-    void multiply(double a)
-    {
-        for (int i = 0; i < _dim; i++)
-        {
-            _arr[i] *= a;
-        }
-    }
+    void multiply(double a);
 };
 
 #endif
