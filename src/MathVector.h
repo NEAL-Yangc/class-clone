@@ -16,7 +16,9 @@ public:
     void init(int dim, double *arr);
     MathVector(int dim, double *arr) { init(dim, arr); };
     MathVector(const MathVector &input) : MathVector(input._dim, input._arr){}; // copy constructor
+    MathVector(MathVector &&input);                                             // move construcor
     MathVector &operator=(const MathVector &input);                             // copy assignment, in other word is "=" overloading
+    MathVector &operator=(const MathVector &&input);
     MathVector operator+(const MathVector &input);
     MathVector operator-(const MathVector &input);
     MathVector operator/(const MathVector &input);

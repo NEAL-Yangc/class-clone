@@ -24,6 +24,9 @@ void TriangleTest::SetUp()
     v3 = MathVector(2, arr3);
 
     t = Triangle(v1, v2, v3);
+
+    // rvalue 傳進來不複製畢竟不更改
+    t = Triangle(MathVector(2, arr1), MathVector(2, arr2), MathVector(2, arr3));
 }
 
 void TriangleTest::TearDown()

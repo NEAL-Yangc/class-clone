@@ -74,6 +74,16 @@ void MathVector::init(int dim, double *arr)
 // }
 
 // this & means we want to return by reference. if no add & is return by value is means copy.
+
+MathVector::MathVector(MathVector &&input)
+{
+    this->_dim = input._dim;
+    this->_arr = input._arr;
+
+    input._dim = 0;
+    input._arr = nullptr;
+}
+
 MathVector &MathVector::operator=(const MathVector &input)
 {
     // if a = a; // we don't want to process this situation.
@@ -96,13 +106,23 @@ MathVector &MathVector::operator=(const MathVector &input)
     //* is dereference operator. we want to return the object not a address.
 }
 
+MathVector &MathVector::operator=(const MathVector &&input)
+{
+    if (this != &input)
+    {
+        this->_dim = std::move(input._dim);
+        this->_arr = std::move(input._arr);
+    }
+    return *this;
+}
+
 MathVector MathVector::operator+(const MathVector &input)
 {
     double *tmp = new double[input.getDim()];
     for (int i = 0; i < input.getDim(); i++)
     {
         tmp[i] = this->_arr[i] + input._arr[i];
-    } // this one
+    }
     MathVector m = MathVector(input.getDim(), tmp);
     delete[] tmp;
     return m;
