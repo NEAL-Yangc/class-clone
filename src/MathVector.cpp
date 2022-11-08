@@ -106,15 +106,18 @@ MathVector &MathVector::operator=(const MathVector &input)
     //* is dereference operator. we want to return the object not a address.
 }
 
-MathVector &MathVector::operator=(const MathVector &&input)
+MathVector &MathVector::operator=(MathVector &&input)
 {
     if (this != &input)
     {
         this->_dim = std::move(input._dim);
         this->_arr = std::move(input._arr);
+        input._dim = 0;
+        input._arr = nullptr;
     }
     return *this;
 }
+// move 已清空他delete不到東西吧
 
 MathVector MathVector::operator+(const MathVector &input)
 {
